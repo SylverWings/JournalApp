@@ -1,10 +1,9 @@
-import { TurnedInNot } from "@mui/icons-material"
-import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material"
+import { Box, Divider, Drawer, List, Toolbar, Typography } from "@mui/material"
 import { useSelector } from "react-redux"
 import { SideBarItem } from "./SideBarItem"
 
 
-export const SideBar = ({drawerWidth}) => {
+export const SideBar = ({drawerWidth = 240}) => {
 
     const { displayName } = useSelector( state => state.auth)
     const { notes } = useSelector( state => state.journal)
@@ -15,7 +14,7 @@ export const SideBar = ({drawerWidth}) => {
             sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }}}
         >
             <Drawer
-                variant="permanent"  // Temporary => si queremos oculatrlo o jugar con el tamaño
+                variant="permanent"  // Temporary => si queremos ocultarlo o jugar con el tamaño
                 open
                 sx={{
                     display: { xs: 'block' },
@@ -29,9 +28,9 @@ export const SideBar = ({drawerWidth}) => {
                 </Toolbar>
                 <Divider />
                 <List>
-                    {
-                        notes.map(note=> (
-                            <SideBarItem key={note.id} {...note} />
+                    {notes.length > 0 &&
+                        notes.map( note => (
+                            <SideBarItem key={ note.id } { ...note } />
                         ))
                     }
                 </List>
